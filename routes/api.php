@@ -6,11 +6,12 @@ use App\Http\Controllers\Procesos\GrupoSeguridadController;
 use App\Http\Controllers\Procesos\PlantillaController;
 use App\Http\Controllers\Procesos\PermisosUsuarioController;
 use App\Http\Controllers\Procesos\ConfiguracionController;
-use App\Http\Controllers\Procesos\MiPerfilController;
+
 use App\Http\Controllers\Catalogos\ClienteController;
 use App\Http\Controllers\Catalogos\ServicioController;
 use App\Http\Controllers\Procesos\PagoController;
 use App\Http\Controllers\Reportes\ReportePagoController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -88,19 +89,11 @@ Route::group([
         Route::post('actualizar-preferencias', [ConfiguracionController::class, 'actualizarPreferencias']);
     });
 
-    /**
-     * Mi Perfil Module
-     */
-    Route::group(['prefix' => 'mi_perfil'], function () {
-        Route::post('modificar', [MiPerfilController::class, 'modificar']);
-        Route::post('cambiar', [MiPerfilController::class, 'cambiar']);
-        Route::post('consultar', [MiPerfilController::class, 'consultar']);
-        Route::post('consultar-estados-civiles', [MiPerfilController::class, 'consultarEstadosCiviles']);
-        Route::post('consultar-paises', [MiPerfilController::class, 'consultarPaises']);
-        Route::post('consultar-estados', [MiPerfilController::class, 'consultarEstados']);
-        Route::post('consultar-municipios', [MiPerfilController::class, 'consultarMunicipios']);
-    });
-
+    /*****************************************************************
+     * 
+     *                          RUTAS DE PRUEBA
+     * 
+     *****************************************************************/
     /**
      * Colaborador Module
      */
