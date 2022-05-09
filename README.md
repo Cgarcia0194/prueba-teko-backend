@@ -15,6 +15,6 @@ DB_DATABASE=database_name
 DB_USERNAME=user
 DB_PASSWORD=password
 
-4. Crear base de datos - `prueba_teko` en donde se ejecutará la aplicación.
-5. Ejecutar el script que se adjunta en la carpeta `database/sql/prueba_teko.sql`
+4. Crear base de datos llamada `prueba_teko` en donde se ejecutará la aplicación.
+5. Usar la base creada en el punto anterior y ejecutar el script que se adjunta en la carpeta `database/sql/prueba_teko.sql`
 6. Crear el proyecto con un host virtual en la maquina donde se desea correr o ejecutar el siguiente comando `php artisan serve`
