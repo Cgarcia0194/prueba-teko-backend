@@ -7,7 +7,10 @@ use App\Http\Controllers\Procesos\PlantillaController;
 use App\Http\Controllers\Procesos\PermisosUsuarioController;
 use App\Http\Controllers\Procesos\ConfiguracionController;
 use App\Http\Controllers\Procesos\MiPerfilController;
-use App\Http\Controllers\Catalogos\ColaboradorController;
+use App\Http\Controllers\Catalogos\ClienteController;
+use App\Http\Controllers\Catalogos\ServicioController;
+use App\Http\Controllers\Procesos\PagoController;
+use App\Http\Controllers\Reportes\ReportePagoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -44,9 +47,6 @@ Route::group([
     Route::group(['prefix' => 'general'], function () {
         Route::post('consultar-plantillas', [GeneralController::class, 'consultarPlantillas']);
         Route::post('consultar-estadisticas', [GeneralController::class, 'consultarEstadisticas']);
-        Route::post('consultar-proyectos-por-modelo-de-calidad', [GeneralController::class, 'consultarProyectosPorModeloDeCalidad']);
-        Route::post('consultar-proyectos-por-tipo', [GeneralController::class, 'consultarProyectosPorTipo']);
-        Route::post('consultar-proyectos-por-tamanio', [GeneralController::class, 'consultarProyectosPorTamanio']);
     });
 
     /**
@@ -104,18 +104,40 @@ Route::group([
     /**
      * Colaborador Module
      */
-    Route::group(['prefix' => 'colaborador'], function () {
-        Route::post('agregar', [ColaboradorController::class, 'agregar']);
-        Route::post('modificar', [ColaboradorController::class, 'modificar']);
-        Route::post('desactivar-reactivar', [ColaboradorController::class, 'desactivarReactivar']);
-        Route::post('reactivar', [ColaboradorController::class, 'reactivar']);
-        Route::post('consultar', [ColaboradorController::class, 'consultar']);
-        Route::post('consultar-estados-civiles', [ColaboradorController::class, 'consultarEstadosCiviles']);
-        Route::post('consultar-paises', [ColaboradorController::class, 'consultarPaises']);
-        Route::post('consultar-estados', [ColaboradorController::class, 'consultarEstados']);
-        Route::post('consultar-municipios', [ColaboradorController::class, 'consultarMunicipios']);
-        Route::post('consultar-roles', [ColaboradorController::class, 'consultarRoles']);
-        Route::post('consultar-relevancias', [ColaboradorController::class, 'consultarRelevancias']);
+    Route::group(['prefix' => 'cliente'], function () {
+        Route::post('create', [ClienteController::class, 'create']);
+        Route::post('update', [ClienteController::class, 'update']);
+        Route::post('deactivate-reactivate', [ClienteController::class, 'deactivateReactivate']);
+        Route::post('getClients', [ClienteController::class, 'getClients']);
+        Route::post('getServices', [ClienteController::class, 'getServices']);
+    });
+    
+    /**
+     * 
+     */
+    Route::group(['prefix' => 'servicio'], function () {
+        Route::post('create', [ServicioController::class, 'create']);
+        Route::post('update', [ServicioController::class, 'update']);
+        Route::post('deactivate-reactivate', [ServicioController::class, 'deactivateReactivate']);
+        Route::post('getServices', [ServicioController::class, 'getServices']);
+    });
+
+    /**
+     * 
+     */
+    Route::group(['prefix' => 'pago'], function () {
+        Route::post('create', [PagoController::class, 'create']);
+        Route::post('cancel-payment', [PagoController::class, 'cancelPayment']);
+        Route::post('getClients', [PagoController::class, 'getClients']);
+        Route::post('getPaymentHistory', [PagoController::class, 'getPaymentHistory']);
+    });
+    
+    /**
+     * 
+     */
+    Route::group(['prefix' => 'reporte_pago'], function () {
+        Route::post('getClients', [ReportePagoController::class, 'getClients']);
+        Route::post('getPaymentHistory', [ReportePagoController::class, 'getPaymentHistory']);
     });
 
     /**

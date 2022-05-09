@@ -1,47 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\General;
+namespace App\Http\Controllers\Reportes;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\General\GeneralRepository;
+use App\Repositories\Reportes\ReportePagoRepository;
 use App\Repositories\General\ResponseRepository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class GeneralController extends Controller
+class ReportePagoController extends Controller
 {
     public $responseRepository;
-    public $generalRepository;
+    public $reportePagoRepository;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct(ResponseRepository $rr, GeneralRepository $ar)
+    public function __construct(ResponseRepository $responseRepository, ReportePagoRepository $reportePagoRepository)
     {
         if (Auth::check()) {
-            $this->middleware('general:api', ['except' => [
-                'consultarPlantillas',
-                'consultarEstadisticas',
-            ]]);
-        } else {
-            $this->middleware('general:api', ['except' => [
-                'consultarPlantillas'
+            $this->middleware('reporte_pago:api', ['except' => [
+                'getClients',
+                'getPaymentHistory',
             ]]);
         }
 
-        $this->responseRepository = $rr;
-        $this->generalRepository = $ar;
+        $this->responseRepository = $responseRepository;
+        $this->reportePagoRepository = $reportePagoRepository;
     }
 
     /**
      *
      **/
-    public function consultarPlantillas()
+    public function getClients(Request $request)
     {
         try {
-            $data = $this->generalRepository->consultarPlantillas();
+            $data = $this->reportePagoRepository->getClients($request);
 
             return $this->responseRepository->Response($data);
         } catch (\Exception $e) {
@@ -60,10 +57,10 @@ class GeneralController extends Controller
     /**
      *
      **/
-    public function consultarEstadisticas()
+    public function getPaymentHistory(Request $request)
     {
         try {
-            $data = $this->generalRepository->consultarEstadisticas();
+            $data = $this->reportePagoRepository->getPaymentHistory($request);
 
             return $this->responseRepository->Response($data);
         } catch (\Exception $e) {
