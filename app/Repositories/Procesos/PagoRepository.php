@@ -66,7 +66,7 @@ class PagoRepository
      */
     public function getClients()
     {
-        $query = "SELECT clientes.*, IFNULL( clientes.fecha_egreso, 'Indefinida' ) AS fecha_egreso_validada, CONCAT( clientes.nombre, ' ', clientes.apellido_paterno, ' ', clientes.apellido_materno ) AS nombre_completo_cliente, servicios._id AS servicios_id, servicios.nombre AS servicios_nombre, servicios.costo AS servicios_costo, servicios.descripcion AS servicios_descripcion, servicios.periodicidad AS servicios_periodicidad, (servicios.periodicidad + 0) AS servicios_periodicidad_indice FROM clientes INNER JOIN servicios ON servicios._id = clientes.servicio";
+        $query = "SELECT clientes.*, IFNULL( clientes.fecha_egreso, 'Indefinida' ) AS fecha_egreso_validada, CONCAT( clientes.nombre, ' ', clientes.apellido_paterno, ' ', clientes.apellido_materno ) AS nombre_completo_cliente, servicios._id AS servicios_id, servicios.nombre AS servicios_nombre, servicios.costo AS servicios_costo, servicios.descripcion AS servicios_descripcion, servicios.periodicidad AS servicios_periodicidad, (servicios.periodicidad + 0) AS servicios_periodicidad_indice FROM clientes INNER JOIN servicios ON servicios._id = clientes.servicio WHERE clientes.estatus + 0 = 1";
         $clients = $this->getQueries($query);
 
         return $clients;
